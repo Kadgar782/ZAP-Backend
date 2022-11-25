@@ -1,14 +1,14 @@
 const express = require('express')
+const mongoose = require('mongoose')
 const app = express()
+const products = require('./data.js')
+const products_routes = require('./routes/products.js')
 
-app.listen(5000, () => {
-    console.log('server is listening on port 5000')
-})
+require('dotenv').config()
 
-app.get('/api/products', (req, res) => {
-    res.json([
-        { name: 'iPhone', price: 800 },
-        { name: 'iPad', price: 650 },
-        { name: 'iWatch', price: 750 }
-    ])
-})
+mongoose.connect(process.env.MONGO_URI)
+    .then((result) => app.listen(5000))
+    .catch((err) => console.log(Error))
+
+app.use(express.json())
+app.use('/api/products', products_routes)
