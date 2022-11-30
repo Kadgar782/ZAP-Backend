@@ -9,8 +9,7 @@ const ProductSchema = new mongoose.Schema({
     {
     data: Buffer,
     contentType: String
-   },
-    userId:Number,
+   }
    })
 
 const Product = mongoose.model('Product', ProductSchema)
