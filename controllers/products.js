@@ -1,9 +1,9 @@
-const Product = require('../models/Product.js')
+const Product = require('../models/product.model.js')
 
 const getProducts = ((req, res) => {
     Product.find({})
         .then(result => res.status(200).json({ result }))
-        .catch(error => res.status(500).json({msg: error}))
+        .catch(error => res.status(404).json({msg: error}))//404
 })
 
 const getProduct = ((req, res) => {
