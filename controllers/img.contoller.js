@@ -3,7 +3,7 @@ const Img = require('../models/img.model.js')
 const getImgs = ((req, res) => {
     Img.find({})
         .then(result => res.status(200).json({ result }))
-        .catch(error => res.status(404).json({msg: error}))//404
+        .catch(error => res.status(404).json({msg: error}))
 })
 
 const getImg = ((req, res) => {
