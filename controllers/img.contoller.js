@@ -25,7 +25,7 @@ const updateImg = ((req, res) => {
 })
 
 const deleteImg = ((req, res) => {
-    Img.findOneAndDelete({ _id: req.params.productID })
+    Img.findOneAndDelete({ _id: req.params.imgID })
         .then(result => res.status(200).json({ result }))
         .catch((error) => res.status(404).json({msg: 'Image not found' }))
 })
