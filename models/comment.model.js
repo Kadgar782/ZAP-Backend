@@ -2,13 +2,12 @@ const mongoose = require('mongoose')
 
 const ProductSchema = new mongoose.Schema({
     userId: String,
-    title:String,
     id: Number,
     body:String,
    })
 
-const Product = mongoose.model('Product', ProductSchema)
+const Comment = mongoose.model('Comment', ProductSchema)
 
 
 
-module.exports = Product
+module.exports = Comment
