@@ -13,9 +13,12 @@ mongoose.connect(process.env.MONGO_URI)
 
 const cors = require('cors');
 app.use(cors({
+
 }));
 
 app.use(express.json())
 app.use('/api/products', products_routes)
 app.use('/api/imgs', imgs_routes)
 app.use('/api/comments', comments_routes)
+
+
