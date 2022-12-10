@@ -9,21 +9,25 @@ const getData = ((req, res) => {
       Img.find({}),
       Comment.find({}),
     ]);
-
-     posts.map((p) => { 
+ const mapPosts =()=> posts.map((p) => { 
       const avatars = photos.find((u) => u.id === p.userId); // userId in posts
       //Add Comments
       const commentsInPost = comments.find((u) => u.id === p.userId);
-       return {
+        return {
         ...p,
         commentsInPost,
         avatars,
       }
     });
+    return  mapPosts()
   };
- const realData = async() =>{
 
- }
+  
+  ( async function () {
+  console.log( await mapData());
+  })();
+
+
         (result) => res.status(200).json({ result })
      .catch(error => res.status(404).json({msg: error}))
  console.log(mapData())
