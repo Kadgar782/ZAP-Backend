@@ -4,6 +4,7 @@ const app = express()
 const products_routes = require('./routes/products.js')
 const imgs_routes = require('./routes/img.routes.js')
 const comments_routes = require('./routes/comment.routes.js')
+const data_routes = require('./routes/data.routes.js')
 
 require('dotenv').config()
 
@@ -18,7 +19,7 @@ app.use(cors({
 
 app.use(express.json())
 app.use('/api/products', products_routes)
-app.use('/api/imgs', imgs_routes)
 app.use('/api/comments', comments_routes)
+app.use('/api/data',data_routes)
 
 
