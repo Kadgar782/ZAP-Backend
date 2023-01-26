@@ -10,7 +10,7 @@ const getData = async (req, res) => {
 
     const data = posts.map((p) => {
       //Add Comments
-      const arrayForComments = comments.find((u) => u.postId === p._id.toString());
+      const arrayForComments = comments.filter((u) => u.postId === p._id.toString());
       if (arrayForComments === 0 ||arrayForComments === undefined || arrayForComments === null )
       {
       const commentsInPost = [];
@@ -20,7 +20,7 @@ const getData = async (req, res) => {
       };
       }
       else {
-        const commentsInPost = [arrayForComments];
+        const commentsInPost = arrayForComments;
       return {
         ...p,
         commentsInPost,
