@@ -10,11 +10,23 @@ const getData = async (req, res) => {
 
     const data = posts.map((p) => {
       //Add Comments
-      const commentsInPost = comments.find((u) => u.id === p.id);
+      const arrayForComments = comments.find((u) => u.postId === p._id.toString());
+      if (arrayForComments === 0 ||arrayForComments === undefined || arrayForComments === null )
+      {
+      const commentsInPost = [];
       return {
         ...p,
         commentsInPost,
       };
+      }
+      else {
+        const commentsInPost = [arrayForComments];
+      return {
+        ...p,
+        commentsInPost,
+      };
+      }
+      
     });
 console.log(data);
     res.status(200).json({ data });
