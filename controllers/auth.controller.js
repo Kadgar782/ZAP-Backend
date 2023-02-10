@@ -68,6 +68,16 @@ class authController {
        }
 
     }
+
+    getUserRole(req, res) {
+      try{
+         User.findOne({ _id: req.params.userID })
+         .then(result => res.status(200).json({ result }))   
+      } catch (e) {
+         console.log(e)
+         res.status(404).json({msg: 'User not found'})
+      }
+    }
 }
 
 module.exports = new authController()
