@@ -11,12 +11,15 @@ const getData = async (req, res) => {
     const data = posts.map((p) => {
       //Add Comments
       const arrayForComments = comments.filter((u) => u.postId === p._id.toString());
+      // if (req.user.roles === "ADMIN")
+      const controls = false;
       if (arrayForComments === 0 ||arrayForComments === undefined || arrayForComments === null )
       {
       const commentsInPost = [];
       return {
         ...p,
         commentsInPost,
+        controls,
       };
       }
       else {
@@ -24,9 +27,10 @@ const getData = async (req, res) => {
       return {
         ...p,
         commentsInPost,
+        controls,
       };
       }
-      
+
     });
 console.log(data);
     res.status(200).json({ data });
