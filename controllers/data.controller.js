@@ -1,7 +1,9 @@
 const Comment = require("../models/comment.model.js");
 const Product = require("../models/product.model.js");
 
-const getData = async (req, res) => {
+class dataController {
+
+ getData = async (req, res) => {
   try {
     const [posts,  comments] = await Promise.all([
       Product.find({}).lean(),
@@ -34,7 +36,6 @@ console.log(data);
     res.status(404).json({ msg: error });
   }
 };
+}
 
-module.exports = {
-  getData,
-};
+module.exports = new dataController()

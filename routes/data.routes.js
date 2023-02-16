@@ -1,9 +1,8 @@
 const express = require('express')
 const router = express.Router()
+const controller = require ('../controllers/data.controller')
 const authMiddlewaree = require("../middlewaree/authMiddlewaree")
 
-const {getData} = require('../controllers/data.controller.js')
-
-router.get('/', getData)
+router.get('/',authMiddlewaree, controller.getData)
 
 module.exports = router
