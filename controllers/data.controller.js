@@ -15,7 +15,7 @@ class dataController {
           (u) => u.postId === p._id.toString()
         );
         const controls = false;
-        if (req.headers.authorization === "Bearer") {
+        if (req.headers.authorization === "Bearer" || req.headers.authorization === "Bearer null" ) {
           //without roles
           if (!arrayForComments) {
             const commentsInPost = [];
