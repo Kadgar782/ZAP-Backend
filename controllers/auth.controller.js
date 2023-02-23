@@ -1,36 +1,9 @@
 const User = require('../models/user.model.js')
 const Role = require('../models/role.model.js')
 const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken')
 const {validationResult} = require("express-validator")
-const {secret, secretRefresh} = require ("../config")
-const tokenModel = require ("../models/token.model")
+const TokenService = require("../service/token-service")
 const salt = bcrypt.genSaltSync(7);
-
-const  generateAccessToken= (id,roles) =>{
-   const payload = {
-      id,
-      roles
-   }
-
-   const accessToken = jwt.sign(payload,secret,{expiresIn:"30m"})
-   const refreshToken = jwt.sign(payload,secretRefresh,{expiresIn:"30m"})
-
-   return {
-      accessToken,
-      refreshToken   
-   }
-}
-
-const saveToken = async (userId, refreshToken) =>{
-   const tokenData = await tokenModel.findOne({user: userId})
-     if (tokenData) {
-         tokenData.refreshToken = refreshToken;
-         return tokenData.save();
-     }
-     const token = await tokenModel.create({user: userId, refreshToken})
-     return token;
-}
 
 
 class authController {  
@@ -73,8 +46,9 @@ class authController {
            if(!validPassword) {
             return res.status(400).json({message:"Invalid password "})
            }
-          const token = generateAccessToken(user._id, user.roles)
-          await saveToken(user._id, token.refreshToken)
+
+          const token = TokenService.generateAccessToken(user._id, user.roles)
+          await TokenService.saveToken(user._id, token.refreshToken)
           return res.json({token})
        } catch (e) {
          console.log(e)
@@ -93,6 +67,17 @@ class authController {
        }
 
     }
+
+    async refresh(req, res, next) {
+      try {
+          const {refreshToken} = req.cookies;
+          const userData = await userService.refresh(refreshToken);
+          res.cookie('refreshToken', userData.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true})
+          return res.json(userData);
+      } catch (e) {
+          next(e);
+      }
+  }
 
     getUserRole(req, res) {
       try{
