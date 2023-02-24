@@ -47,8 +47,9 @@ class authController {
             return res.status(400).json({message:"Invalid password "})
            }
 
-          const token = TokenService.generateAccessToken(user._id, user.roles)
+          const token = TokenService.generateTokens(user._id, user.roles)
           await TokenService.saveToken(user._id, token.refreshToken)
+          res.cookie('refreshToken', token.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true})
           return res.json({token})
        } catch (e) {
          console.log(e)
@@ -72,7 +73,7 @@ class authController {
       try {
           const {refreshToken} = req.cookies;
           const userData = await userService.refresh(refreshToken);
-          res.cookie('refreshToken', userData.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true})
+          res.cookie('refreshToken', userData.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true})//30 day
           return res.json(userData);
       } catch (e) {
           next(e);
