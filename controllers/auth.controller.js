@@ -1,7 +1,7 @@
 const User = require('../models/user.model.js')
 const Role = require('../models/role.model.js')
 const bcrypt = require('bcryptjs');
-const {validationResult} = require("express-validator")
+const {validationResult, cookie} = require("express-validator")
 const TokenService = require("../service/token-service")
 const salt = bcrypt.genSaltSync(7);
 
@@ -49,14 +49,25 @@ class authController {
 
           const token = TokenService.generateTokens(user._id, user.roles)
           await TokenService.saveToken(user._id, token.refreshToken)
-          res.cookie('refreshToken', token.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true})
+          console.log(token.refreshToken)
+          res.cookie('refreshToken', token.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true,})
           return res.json({token})
        } catch (e) {
          console.log(e)
          res.status(400).json( {message:'Login error'})
        }
-
     }
+
+    async logout(req, res, next) {
+      try {
+          const {refreshToken} = req.cookies;
+          const token = await userService.logout(refreshToken);
+          res.clearCookie('refreshToken');
+          return res.json(token);
+      } catch (e) {
+          next(e);
+      }
+  }
 
     async getUsers (req, res) {
        try{
