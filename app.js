@@ -11,12 +11,13 @@ const cors = require('cors');
 require('dotenv').config()
 
 mongoose.connect(process.env.MONGO_URI)
-    .then((result) => app.listen(5000))
+    .then((result) => app.listen(5001))
     .catch((err) => console.log(err))
 
 app.use(cors({
     credentials: true,
     origin: 'http://localhost:3000', 
+    optionsSuccessStatus: 200,
 }));
 
 app.use(express.json());
