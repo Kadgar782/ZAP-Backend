@@ -1,6 +1,7 @@
 const User = require('../models/user.model.js')
 const Role = require('../models/role.model.js')
 const bcrypt = require('bcryptjs');
+const userService = require("../service/user-service")
 const {validationResult, cookie} = require("express-validator")
 const tokenService = require("../service/token-service")
 const salt = bcrypt.genSaltSync(7);
