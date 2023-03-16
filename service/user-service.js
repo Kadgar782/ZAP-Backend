@@ -11,19 +11,21 @@ class UserService {
 }
 
 
-async refresh(refreshToken) {
+async refresh(refreshToken,res ) {
     if (!refreshToken) {
       return res.status(400).json({message:"Token not found"})
   }
       const userData = tokenService.validateRefreshToken(refreshToken);
       const tokenFromDb = await tokenService.findToken(refreshToken);
+      console.log(userData)
+      console.log(tokenFromDb)
       if (!userData || !tokenFromDb) {
         return res.status(400).json({message:"Token or user dara is not valid"});
     }
-    const user = await User.findById(userData._id);
-    const tokens = tokenService.generateTokens(...user._id, user.roles);
+    const user = await User.findById(userData.id);
+    const tokens = tokenService.generateTokens(...user.id, user.roles);
 
-    await tokenService.saveToken(user._id, tokens.refreshToken);
+    await tokenService.saveToken(user.id, tokens.refreshToken);
 
      return res.json(...tokens, user);
 }

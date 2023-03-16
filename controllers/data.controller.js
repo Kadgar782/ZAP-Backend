@@ -35,7 +35,6 @@ class dataController {
         } else {
           //have roles
           const adminRole = req.user.roles.find((role) => role === "ADMIN");
-          console.log("is admin? " + adminRole);
           if (!arrayForComments) {
             const commentsInPost = [];
             if (adminRole) {
