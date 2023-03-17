@@ -3,7 +3,6 @@ const router = new Router()
 const controller = require('../controllers/user.controller')
 const {check} = require("express-validator")
 const authMiddlewaree = require("../middlewaree/authMiddlewaree")
-// const tokenFindTest = require("../service/token-service")
 
 router.post('/registration', [
     check('username', "Username can't be empty").notEmpty(),
@@ -14,6 +13,5 @@ router.post('/logout', controller.logout);
 router.get('/users', authMiddlewaree, controller.getUsers)
 router.get('/refresh', controller.refresh);
 router.get('/:userID', controller.getUserRole)
-// router.get('/findo', tokenFindTest.findToken);
 
 module.exports = router

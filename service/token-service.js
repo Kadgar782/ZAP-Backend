@@ -28,8 +28,7 @@ class TokenService {
 
     validateRefreshToken(token) {
         try {
-            console.log(token)
-            const userData = jwt.verify(token, process.env.JWT_REFRESH_SECRET);// something wrong her 
+            const userData = jwt.verify(token, process.env.JWT_REFRESH_SECRET);
             return userData;
         } catch (e) {
             return null;

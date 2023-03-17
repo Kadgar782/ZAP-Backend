@@ -19,13 +19,12 @@ async refresh(refreshToken ) {
       const userData = tokenService.validateRefreshToken(refreshToken);// id and roles, on second refresh return { id: '6', roles: '3', iat: 1679050853, exp: 1681642853 }
       const tokenFromDb = await tokenService.findToken(refreshToken);//  _id, user ObjectId and refreshToken
 
-      console.log(userData)
-      console.log(tokenFromDb)
       if (!userData || !tokenFromDb) {
         throw ApiError.UnauthorizedError();
     }
     const user = await User.findById(userData.id);
-    const tokens = tokenService.generateTokens(...user.id, user.roles);
+
+    const tokens = tokenService.generateTokens(user._id, user.roles);
 
     await tokenService.saveToken(user.id, tokens.refreshToken);
 
