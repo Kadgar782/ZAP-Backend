@@ -1,5 +1,6 @@
 const User = require('../models/user.model.js')
 const tokenService = require('./token-service');
+const ApiError = require('../exceptions/api-error');
 
 
 class UserService {
@@ -11,23 +12,24 @@ class UserService {
 }
 
 
-async refresh(refreshToken,res ) {
+async refresh(refreshToken ) {
     if (!refreshToken) {
-      return res.status(400).json({message:"Token not found"})
+      throw ApiError.UnauthorizedError();
   }
-      const userData = tokenService.validateRefreshToken(refreshToken);
-      const tokenFromDb = await tokenService.findToken(refreshToken);
+      const userData = tokenService.validateRefreshToken(refreshToken);// id and roles, on second refresh return { id: '6', roles: '3', iat: 1679050853, exp: 1681642853 }
+      const tokenFromDb = await tokenService.findToken(refreshToken);//  _id, user ObjectId and refreshToken
+
       console.log(userData)
       console.log(tokenFromDb)
       if (!userData || !tokenFromDb) {
-        return res.status(400).json({message:"Token or user dara is not valid"});
+        throw ApiError.UnauthorizedError();
     }
     const user = await User.findById(userData.id);
     const tokens = tokenService.generateTokens(...user.id, user.roles);
 
     await tokenService.saveToken(user.id, tokens.refreshToken);
 
-     return res.json(...tokens, user);
+     return {...tokens, user};
 }
 }
 
