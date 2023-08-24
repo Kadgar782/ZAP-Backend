@@ -1,10 +1,10 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const app = express()
-const authRouter = require('./routes/authRouter')
-const products_routes = require('./routes/products.js')
-const comments_routes = require('./routes/comment.routes.js')
-const data_routes = require('./routes/data.routes.js')
+const authRouter = require('../routes/authRouter')
+const products_routes = require('../routes/products.js')
+const comments_routes = require('../routes/comment.routes.js')
+const data_routes = require('../routes/data.routes.js')
 const cookieParser = require('cookie-parser')
 const cors = require('cors');
 
