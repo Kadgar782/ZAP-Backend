@@ -16,7 +16,7 @@ mongoose.connect(process.env.MONGO_URI)
 
 app.use(cors({
     credentials: true,
-    origin: 'http://localhost:3000', 
+    origin: process.env.REACT_APP_CLIENT_URL, 
     optionsSuccessStatus: 200,
 }));
 
