@@ -14,11 +14,11 @@ mongoose.connect(process.env.MONGO_URI)
     .then((result) => app.listen(5001))
     .catch((err) => console.log(err))
 
-app.use(cors({
-    credentials: true,
-    origin:"https://zap-hazel.vercel.app", 
-    optionsSuccessStatus: 200,
-}));
+// app.use(cors({
+//     credentials: true,
+//     origin:"https://zap-hazel.vercel.app", 
+//     optionsSuccessStatus: 200,
+// }));
 
 app.use(express.json());
 app.use(cookieParser());
