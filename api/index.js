@@ -16,7 +16,7 @@ mongoose.connect(process.env.MONGO_URI)
 
 app.use(cors({
     credentials: true,
-    origin: process.env.CLIENT_URL, 
+    origin:"https://zap-hazel.vercel.app/", 
     optionsSuccessStatus: 200,
 }));
 
