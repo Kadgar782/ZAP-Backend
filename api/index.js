@@ -6,7 +6,7 @@ const products_routes = require('../routes/products.js')
 const comments_routes = require('../routes/comment.routes.js')
 const data_routes = require('../routes/data.routes.js')
 const cookieParser = require('cookie-parser')
-const cors = require('cors');
+// const cors = require('cors');
 
 require('dotenv').config()
 
@@ -14,11 +14,11 @@ mongoose.connect(process.env.MONGO_URI)
     .then((result) => app.listen(5001))
     .catch((err) => console.log(err))
 
-app.use(cors({
-    credentials: true,
-    origin:process.env.CLIENT_URL, 
-    optionsSuccessStatus: 200,
-}));
+// app.use(cors({
+//     credentials: true,
+//     origin:"https://zap-hazel.vercel.app/", 
+//     optionsSuccessStatus: 200,
+// }));
 
 app.use(express.json());
 app.use(cookieParser());
