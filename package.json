@@ -9,6 +9,7 @@
     "jsonwebtoken": "^9.0.0",
     "mongoose": "^6.7.3",
     "nodemailer": "^6.9.3",
+    "serverless-http": "^3.2.0",
     "uuid": "^9.0.0"
   },
   "scripts": {
