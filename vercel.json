@@ -11,8 +11,9 @@
     { "source": "/api/(.*)", "destination": "/api" }
   ],
   "headers": [
+    
     {
-      "source": "/api/(.*)",
+      "source": "/auth/(.*)",
       "headers": [
         { "key": "Access-Control-Allow-Credentials", "value": "true" },
         { "key": "Access-Control-Allow-Origin", "value": "https://zap-hazel.vercel.app" },
@@ -21,7 +22,7 @@
       ]
     },
     {
-      "source": "/auth/(.*)",
+      "source": "/api/(.*)",
       "headers": [
         { "key": "Access-Control-Allow-Credentials", "value": "true" },
         { "key": "Access-Control-Allow-Origin", "value": "https://zap-hazel.vercel.app" },
