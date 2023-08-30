@@ -8,7 +8,7 @@
   ],
   "rewrites": [
     { "source": "/api/(.*)", "destination": "/api" },
-    { "source": "/auth", "destination": "/auth" }
+    { "source": "/auth/(.*)", "destination": "/auth" }
   ],
   "headers": [
     {
@@ -21,7 +21,7 @@
       ]
     },
     {
-      "source": "auth/(.*)",
+      "source": "/auth/(.*)",
       "headers": [
         { "key": "Access-Control-Allow-Credentials", "value": "true" },
         { "key": "Access-Control-Allow-Origin", "value": "https://zap-hazel.vercel.app" },
