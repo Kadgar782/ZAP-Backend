@@ -22,7 +22,7 @@ mongoose.connect(process.env.MONGO_URI)
 
 app.use(express.json());
 app.use(cookieParser());
-app.use('/auth', authRouter)
+app.use('/api/auth', authRouter)
 app.use('/api/products', products_routes)
 app.use('/api/comments', comments_routes)
 app.use('/api/data',data_routes)
