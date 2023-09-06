@@ -34,7 +34,7 @@ class authController {
            const activationLink = uuid.v4()
 
            const user = new User ({username, email, isActivated: false, password: hashPassword, roles: [userRole.value], activationLink: activationLink})
-           await mailService.sendActivationMail(email, `${process.env.API_URL}/auth/activate/${activationLink}`);
+           await mailService.sendActivationMail(email, `${process.env.API_URL}/api/auth/activate/${activationLink}`);
            await  user.save()
            return res.status(200).json({message:"User has been successfully registered"})
 
